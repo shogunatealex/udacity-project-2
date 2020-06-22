@@ -28,13 +28,13 @@ class PollSummary extends Component {
       }
 }
 
-function mapStateToProps ({questions}) {
+function mapStateToProps ({questions, authedUser}) {
     return {
       unansweredQuestions: Object.keys(questions)
-          .filter((id) => questions[id].optionOne.votes.length === 0 && questions[id].optionTwo.votes.length === 0)
+          .filter((id) => questions[id].optionOne.votes.indexOf(authedUser) === -1 && questions[id].optionTwo.votes.indexOf(authedUser) === -1)
           .sort((a,b) => questions[b].timestamp - questions[a].timestamp),
       answeredQuestions: Object.keys(questions)
-          .filter((id) => questions[id].optionOne.votes.length !== 0 || questions[id].optionTwo.votes.length !== 0)
+          .filter((id) => questions[id].optionOne.votes.indexOf(authedUser) !== -1 || questions[id].optionTwo.votes.indexOf(authedUser) !== -1)
           .sort((a,b) => questions[b].timestamp - questions[a].timestamp),
     }
   }

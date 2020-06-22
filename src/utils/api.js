@@ -2,7 +2,6 @@ import {
     generateUID,
     _getUsers,
     _getQuestions,
-    formatQuestion,
     _saveQuestion,
     _saveQuestionAnswer,
   } from './_DATA.js'
@@ -18,7 +17,6 @@ import {
     }))
   }
   
-
 export function saveQuestion (question) {
     return _saveQuestion(question)
 }

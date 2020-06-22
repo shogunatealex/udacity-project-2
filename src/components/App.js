@@ -6,6 +6,8 @@ import { connect } from 'react-redux';
 import './App.css';
 import PollSummary from './PollSummary';
 import Nav from './Nav';
+import Leaderboard from './Leaderboard';
+import NewQuestion from './NewQuestion';
 
 class App extends Component {
   componentDidMount(){
@@ -22,8 +24,8 @@ class App extends Component {
             : <div>
                 <Route path='/' exact component={PollSummary} />
                 {/* <Route path='/tweet/:id' component={TweetPage} /> */}
-                <Route path='/new' component={null} />
-                <Route path='/leaderboard' component={null} />
+                <Route path='/new' component={NewQuestion} />
+                <Route path='/leaderboard' component={Leaderboard} />
                 <Route path='/profile' component={null} />
                 <Route path='/logout' component={null} />
               </div>}
