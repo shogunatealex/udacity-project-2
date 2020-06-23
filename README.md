@@ -2,6 +2,19 @@
 
 This is a project used to test knowledge of the redux framework. The application runs on a react redux frontend and a simple backend used to mimic a basic backend for testing purposes. You will be able to choose a user and answer polls as well as see the results of those polls. You can also logout and log back in as a different user. It's important to note that this is not a persistant database. Any refreshes will refresh the "server" on the backend file. So make sure to use the links in the app to keep the information persistant while testing.
 
+
+# Installation
+
+This app is quite easy to run. 
+1. Just clone it into onto your computer. 
+2. cd into the directory
+3. run : `yarn install`
+4. run : `yarn start`
+
+The app should pop up in your browser.
+
+NOTE: you can replace yarn with npm and it should work the same.
+
 ## Data
 
 There are two types of objects stored in our database:
