@@ -9,7 +9,6 @@ class QuestionInfo extends Component {
     render() {
         const { users, id, authedUser, questions} = this.props;
         if(!authedUser){
-            console.log(this.props.location);
             return (
                 <Redirect 
                 to={{

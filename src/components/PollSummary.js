@@ -9,7 +9,6 @@ import { Redirect } from 'react-router-dom';
 class PollSummary extends Component {
     render() {
         const { unansweredQuestions, answeredQuestions, authedUser } = this.props;
-        console.log(unansweredQuestions.length, answeredQuestions);
 
         if(!authedUser){
           return (

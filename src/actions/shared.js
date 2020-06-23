@@ -25,8 +25,6 @@ export function handleAddQuestion (optionOneText, optionTwoText){
 
         dispatch(showLoading())
 
-        console.log(optionOneText, optionTwoText, authedUser);
-
         return saveQuestion({
             optionOneText,
             optionTwoText,

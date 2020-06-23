@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import "./PollCard.css";
+import "./main.css";
 import { Redirect } from 'react-router-dom';
 const images = require.context('../img', true);
 
@@ -12,11 +12,9 @@ class QuestionResults extends Component {
     }
 
 
-
     render() {
         const { id ,questions, users, authedUser } = this.props;
         if(!authedUser){
-            console.log(this.props.location);
             return (
                 <Redirect 
                 to={{
@@ -26,8 +24,6 @@ class QuestionResults extends Component {
         }
 
         const currentQuestion = questions[id];
-        console.log(authedUser, currentQuestion.optionOne.votes);
-        console.log(authedUser in currentQuestion.optionOne.votes);
         const optionOneSelected = currentQuestion.optionOne.votes.includes(authedUser) ? true: false
         const currentUser = users[currentQuestion.author];
         const totalVotes = currentQuestion.optionOne.votes.length + currentQuestion.optionTwo.votes.length

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import "./PollCard.css";
+import "./main.css";
 import { Redirect } from 'react-router-dom';
 const images = require.context('../img', true);
 
@@ -9,7 +9,6 @@ class Leaderboard extends Component {
     render() {
         const { users, userIds, authedUser } = this.props;
 
-        console.log(users, userIds);
         if(!authedUser){
             return (
                 <Redirect 
@@ -27,7 +26,7 @@ class Leaderboard extends Component {
                         const questionsAnswered = Object.keys(currentUser.answers).length;
                         const questionsAsked = currentUser.questions.length;
                         return (
-                        <div className="card" >
+                        <div key={"leaderboard-" + userId} className="card" >
                             <div className="container" style={{height: 150}}>
                                 <h3>
                                     {users[userId].name}

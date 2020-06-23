@@ -52,7 +52,7 @@ class Logout extends Component {
                                 <option value="" defaultChecked={true}>Pick a User</option>
                                 {userIds.map((userId)=>{
                                     return (
-                                        <option value={userId}>
+                                        <option key={"user-" + userId} value={userId}>
                                             {users[userId].name}
                                         </option>
                                     )

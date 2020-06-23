@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import "./PollCard.css";
+import "./main.css";
 import { Link } from 'react-router-dom';
 const images = require.context('../img', true);
 

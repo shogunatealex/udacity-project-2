@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import "./PollCard.css";
+import "./main.css";
 import { Redirect } from 'react-router-dom';
 import { handleSaveQuestionAnswer } from '../actions/shared'
 const images = require.context('../img', true);
@@ -24,7 +24,6 @@ class AnswerQuestion extends Component {
         e.preventDefault();
 
         const { option } = this.state
-        console.log(option);
         const { dispatch, id } = this.props
 
         dispatch(handleSaveQuestionAnswer(option, id))
@@ -38,7 +37,6 @@ class AnswerQuestion extends Component {
     render() {
         const { id ,questions, users, authedUser } = this.props;
         if(!authedUser){
-            console.log(this.props.location);
             return (
                 <Redirect 
                 to={{
@@ -50,7 +48,6 @@ class AnswerQuestion extends Component {
         const currentQuestion = questions[id];
         const currentUser = users[currentQuestion.author];
         const img = images('./' + currentUser.avatarURL);
-        console.log(currentQuestion);
         return (
             <div style={{width:500, border: "1px solid #AAAAAA", margin: "auto"}}>
                 <div className="card">
@@ -64,7 +61,7 @@ class AnswerQuestion extends Component {
                             <div style={{marginLeft: 100}}>
                                 <h4>Would you rather:</h4>
                                 <select onChange={this.handleOnChange}>
-                                    <option>Select an Answer</option>
+                                    <option value="">Select an Answer</option>
                                     <option value="optionOne">{currentQuestion.optionOne.text}</option>
                                     <option value="optionTwo">{currentQuestion.optionTwo.text}</option>
                                 </select>

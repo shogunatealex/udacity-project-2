@@ -27,7 +27,6 @@ class App extends Component {
             ? null
             : <div>
                 <Route path='/' exact component={PollSummary} />
-                {/* <Route path='/tweet/:id' component={TweetPage} /> */}
                 <Route path='/add' component={NewQuestion} />
                 <Route path='/leaderboard' component={Leaderboard} />
                 <Route path='/logout' component={Logout} />

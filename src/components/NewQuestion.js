@@ -13,12 +13,10 @@ class NewQuestion extends Component {
 
 
     handleSubmit = (e) => {
-        console.log('here');
         e.preventDefault();
 
         const { optionOneText, optionTwoText } = this.state
 
-        console.log('New Question:', optionOneText, optionTwoText);
 
         const { dispatch } = this.props
 
@@ -27,6 +25,7 @@ class NewQuestion extends Component {
         this.setState(() => ({
             optionOneText: '',
             optionTwoText: '',
+            toHome: true
         }))
     }
 
@@ -40,14 +39,18 @@ class NewQuestion extends Component {
 
     render() {
         const { authedUser } = this.props
+        const { toHome } = this.state;
         if(!authedUser){
-            console.log(this.props.location);
             return (
                 <Redirect 
                 to={{
                     pathname:"/login",
                     state: { from: this.props.location }}} />
             )
+        }
+        if(toHome){
+            return (<Redirect 
+            to="/" />) 
         }
         return (
                 <div style={{width:500, border: "1px solid #AAAAAA", margin: "auto"}}>

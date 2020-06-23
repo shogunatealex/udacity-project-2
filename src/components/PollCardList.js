@@ -9,7 +9,7 @@ class PollCardList extends Component {
         return (
             questionIds.length ? questionIds.map((questionId) => {
                 return (
-                    <PollCard id={questionId}/>
+                    <PollCard key={"display-id" + questionId} id={questionId}/>
                 )
             }) :
             <div>
