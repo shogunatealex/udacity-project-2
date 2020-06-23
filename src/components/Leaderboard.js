@@ -1,16 +1,24 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import "./PollCard.css";
+import { Redirect } from 'react-router-dom';
 const images = require.context('../img', true);
 
 
 class Leaderboard extends Component {
     render() {
-        const { id ,questions, users, userIds } = this.props;
-        // const currentQuestion = questions[id];
-        // const currentUser = users[currentQuestion.author];
-        // const img = images('./' + currentUser.avatarURL);
+        const { users, userIds, authedUser } = this.props;
+
         console.log(users, userIds);
+        if(!authedUser){
+            return (
+                <Redirect 
+                to={{
+                    pathname:"/login",
+                    state: { from: this.props.location }}} />
+            )
+        }
+
         return (
                 <div style={{width:500, border: "1px solid #AAAAAA", margin: "auto"}}>
                     {userIds.map((userId) => {
@@ -25,7 +33,7 @@ class Leaderboard extends Component {
                                     {users[userId].name}
                                 </h3>
                                 <div style={{float:"left"}}>
-                                    <img src={img} height={100} width={100}/>
+                                    <img alt={currentUser.name + 's profile picture'} src={img} height={100} width={100}/>
                                 </div>
                                 <p>
                                     Answered Questions: {questionsAnswered}
@@ -48,9 +56,9 @@ class Leaderboard extends Component {
     }
 }
 
-function mapStateToProps({ questions, users }, id) {
+function mapStateToProps({ users, authedUser }) {
     return {
-        questions,
+        authedUser,
         userIds: Object.keys(users)
             .sort((a,b) => (
                 (users[b].questions.length + Object.keys(users[b].answers).length) - (users[a].questions.length + Object.keys(users[a].answers).length)

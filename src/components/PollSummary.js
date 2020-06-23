@@ -3,12 +3,22 @@ import { connect } from 'react-redux';
 import PollCardList from './PollCardList'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
+import { Redirect } from 'react-router-dom';
 
 
 class PollSummary extends Component {
     render() {
-        const { unansweredQuestions, answeredQuestions } = this.props;
+        const { unansweredQuestions, answeredQuestions, authedUser } = this.props;
         console.log(unansweredQuestions.length, answeredQuestions);
+
+        if(!authedUser){
+          return (
+              <Redirect 
+              to={{
+                  pathname:"/login",
+                  state: { from: this.props.location }}} />
+          )
+      }
         
         return (
             <Tabs style={{width:500, border: "1px solid #AAAAAA", margin: "auto"}}>
@@ -30,6 +40,7 @@ class PollSummary extends Component {
 
 function mapStateToProps ({questions, authedUser}) {
     return {
+      authedUser,
       unansweredQuestions: Object.keys(questions)
           .filter((id) => questions[id].optionOne.votes.indexOf(authedUser) === -1 && questions[id].optionTwo.votes.indexOf(authedUser) === -1)
           .sort((a,b) => questions[b].timestamp - questions[a].timestamp),

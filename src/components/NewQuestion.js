@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { handleAddQuestion } from "../actions/questions"
-const images = require.context('../img', true);
-
+import { handleAddQuestion } from "../actions/shared";
+import { Redirect } from "react-router-dom"
 
 class NewQuestion extends Component {
 
@@ -40,6 +39,16 @@ class NewQuestion extends Component {
     }
 
     render() {
+        const { authedUser } = this.props
+        if(!authedUser){
+            console.log(this.props.location);
+            return (
+                <Redirect 
+                to={{
+                    pathname:"/login",
+                    state: { from: this.props.location }}} />
+            )
+        }
         return (
                 <div style={{width:500, border: "1px solid #AAAAAA", margin: "auto"}}>
                         <div className="card" >
@@ -52,12 +61,14 @@ class NewQuestion extends Component {
                                     <input 
                                         placeholder="option one..."
                                         name="optionOneText"
-                                        onChange={this.handleChange}/>
+                                        onChange={this.handleChange}
+                                        value={this.state.optionOneText}/>
                                     <h3>or</h3>
                                     <input 
                                         placeholder="option two..."
                                         name="optionTwoText"
-                                        onChange={this.handleChange}/>
+                                        onChange={this.handleChange}
+                                        value={this.state.optionTwoText}/>
                                     <br/>
                                     <button >Submit</button>
                                 </form>
@@ -70,10 +81,11 @@ class NewQuestion extends Component {
     }
 }
 
-function mapStateToProps({  }) {
+function mapStateToProps ({authedUser}) {
     return {
-        
+        authedUser
     }
 }
+
 
 export default connect(mapStateToProps)(NewQuestion)

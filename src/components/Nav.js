@@ -1,41 +1,68 @@
-import React from 'react'
+import React, {Component, Fragment} from 'react'
 import { NavLink } from 'react-router-dom'
 import "./Nav.css"
+import { connect } from 'react-redux'
 
 
-export default function Nav() {
-    return (
+class Nav extends Component {
 
+    render () {
+        const { users, authedUser } = this.props;
 
-        <nav className='nav'>
-            <ul>
-                <li>
-                    <NavLink to ='/' exact activeClassName='active'>
-                        Home
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink to='/new' activeClassName='active'>
-                        New Question
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink to='/leaderboard' activeClassName='active'>
-                        Leader Board
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink to='/profile' activeClassName='active'>
-                        Person
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink to='/logout' activeClassName='active'>
-                        Logout
-                    </NavLink>
-                </li>
+        return (
+            (
+                <nav className='nav'>
+                    <ul>
+                        <li>
+                            <NavLink to ='/' exact activeClassName='active'>
+                                Home
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink to='/add' activeClassName='active'>
+                                New Question
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink to='/leaderboard' activeClassName='active'>
+                                Leaderboard
+                            </NavLink>
+                        </li>
+                        {users[authedUser] ? (
+                        <Fragment>
+                            <li style={{marginLeft: 75}}>
+                                <div style={{color: "white"}}>
+                                    {users[authedUser].name +"'s Profile"}
+                                </div>
+                            </li>
+                            <li>
+                                <NavLink to='/logout' activeClassName='active'>
+                                    Logout
+                                </NavLink>
+                            </li>
+                        </Fragment>
 
-            </ul>
-        </nav>
-    )
+                        ) : (
+                        <li>
+                            <NavLink to='/login' activeClassName='active'>
+                                Login
+                            </NavLink>
+                        </li>
+                        )}
+        
+                    </ul>
+                </nav>
+            )
+        )
+    } 
 }
+
+
+function mapStateToProps ({users, authedUser}) {
+    return {
+      authedUser,
+      users
+    }
+}
+  
+export default connect(mapStateToProps)(Nav)

@@ -1,10 +1,9 @@
-import { getInitialData } from '../utils/api'
-import { receiveUsers } from './users'
-import { setAuthedUser } from './authedUser'
-import { showLoading, hideLoading } from 'react-redux-loading'
-import { receiveQuestions } from './questions';
+import { getInitialData, saveQuestion, saveQuestionAnswer } from '../utils/api'
+import { receiveUsers, addUserQuestion, addUserQuestionAnswer } from './users'
+import { showLoading, hideLoading } from 'react-redux-loading';
+import { receiveQuestions, addQuestion, addQuestionAnswer } from './questions';
 
-const AUTHED_ID = 'tylermcginnis';
+
 
 export function handleInitialData () {
     return (dispatch) => {
@@ -13,8 +12,52 @@ export function handleInitialData () {
             .then(({users, questions}) => {
                dispatch(receiveUsers(users));
                dispatch(receiveQuestions(questions));
-               dispatch(setAuthedUser(AUTHED_ID));
                dispatch(hideLoading());
             })
+    }
+}
+
+
+export function handleAddQuestion (optionOneText, optionTwoText){
+
+    return (dispatch, getState) => {
+        const { authedUser, users } = getState()
+
+        dispatch(showLoading())
+
+        console.log(optionOneText, optionTwoText, authedUser);
+
+        return saveQuestion({
+            optionOneText,
+            optionTwoText,
+            author: authedUser
+        })
+            .then((question) => {
+                dispatch(addUserQuestion(question,users))
+                return dispatch(addQuestion(question))
+            })
+            .then(() => dispatch(hideLoading()))
+    }
+
+}
+
+
+export function handleSaveQuestionAnswer(answer, qid){
+    return (dispatch, getState) => {
+        const { authedUser } = getState()
+
+        dispatch(showLoading())
+
+
+        return saveQuestionAnswer({
+            authedUser, 
+            qid, 
+            answer
+        })
+            .then(() => {
+                dispatch(addUserQuestionAnswer(authedUser, qid, answer ))
+                dispatch(addQuestionAnswer(authedUser, qid, answer ))
+            })
+            .then(() => dispatch(hideLoading()))
     }
 }

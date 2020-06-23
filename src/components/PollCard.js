@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import avatar from '../img/avatar1.png';
 import "./PollCard.css";
+import { Link } from 'react-router-dom';
 const images = require.context('../img', true);
 
 
@@ -16,7 +16,7 @@ class PollCard extends Component {
                 <div className="container">
                     <h3>{currentUser.name} Asks:</h3>
                     <div style={{float:"left"}}>
-                        <img src={img} height={100} width={100}/>
+                        <img alt={currentUser.name + 's profile picture'} src={img} height={100} width={100}/>
                     </div>
 
                     <div style={{marginLeft: 100}}>
@@ -28,7 +28,7 @@ class PollCard extends Component {
                     </div>
 
 
-                    <button>View Poll</button>
+                    <button><Link to={"/question/" + id} style={{color: "inherit", textDecoration:"none"}} >View Poll</Link></button>
                 </div>
 
             </div>
@@ -39,7 +39,7 @@ class PollCard extends Component {
 function mapStateToProps({ questions, users }, id) {
     return {
         questions,
-        users
+        users,
     }
 }
 

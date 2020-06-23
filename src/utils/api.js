@@ -1,5 +1,4 @@
 import {
-    generateUID,
     _getUsers,
     _getQuestions,
     _saveQuestion,
@@ -23,7 +22,7 @@ export function saveQuestion (question) {
 
 
 export function saveQuestionAnswer (questionAnswer) {
-    return _saveQuestion(questionAnswer)
+    return _saveQuestionAnswer(questionAnswer)
 }
 
 
